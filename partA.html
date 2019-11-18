@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Part A</title>
+</head>
+<body>
+
+    <h3>How Many Buttons to Create?</h3>
+    <input id="num" type="text">
+    <input id="button" type="button" value="Go!">
+    <script>
+        function createButtons() {
+            let buttons = parseInt(document.getElementById("num").value);
+            if (buttons >= 5 && buttons <= 100) {
+                for(let i=0; i<buttons; i++) {
+
+                    let btn = document.createElement("button");
+                    btn.style.width = "120px";
+                    btn.style.height = "60px";
+
+                    moveRandom(btn)
+
+                    btn.style.backgroundColor = "rgb("+ Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")";
+                    document.body.appendChild(btn);
+                }
+            }
+        }
+
+        function moveRandom(btn){
+            let x = (Math.random() * (window.innerHeight - 160) + 100).toString();
+            let y = (Math.random() * (window.innerWidth - 120)).toString();
+            btn.style.position = "absolute";
+            btn.style.top = x + "px";
+            btn.style.left = y + "px";
+
+            setInterval(function() {             
+                let x = (Math.random() * (window.innerHeight - 160) + 100).toString();
+                let y = (Math.random() * (window.innerWidth - 120)).toString();
+                btn.style.position = "absolute";
+                btn.style.top = x + "px";
+                btn.style.left = y + "px";
+        }, 2000)
+
+        }
+        document.getElementById("button").onclick = createButtons;
+
+    </script>
+
+</body>
+</html>

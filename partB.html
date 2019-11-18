@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Part B</title>
+</head>
+<body>
+
+    <h3>How Many Buttons to Create?</h3>
+    <input id="num" type="text">
+    <input id="button" type="button" value="Go!">
+    <br>
+    <h3 id="result"></h3>
+    <script>
+        let clickAllow = false;
+
+        function createButtons() {
+            let index = 0;
+            let buttons = parseInt(document.getElementById("num").value);
+            let button_array = []
+
+            if (buttons >= 5 && buttons <= 100) {
+                for(let i=0; i<buttons; i++) {
+                    let btn = document.createElement("button");
+                    let buttonID = "button" + i;
+
+                    btn.style.width = "120px";
+                    btn.style.height = "60px";
+
+                    button_array.push(buttonID);
+                    moveRandom(btn)
+                    
+                    btn.style.backgroundColor = "rgb("+ Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")";
+                    document.getElementById("result").innerHTML = "Memorize the correct order. You have 5 seconds."
+
+                    btn.onclick = function() {
+                        if (clickAllow == true) {
+                            if (buttonID == button_array[index]) {
+                                document.getElementById("result").innerHTML = "Nice, " + (4 - i) + " remaining";
+                                index += 1;
+                                if (index == buttons) {
+                                    document.getElementById("result").innerHTML = "Correct Order. Good Job";
+                                }
+                            } else {
+                                document.getElementById("result").innerHTML = "Wrong Order. Stay hydrated";
+                            } 
+                        }
+                    }
+                    document.body.appendChild(btn);
+                }
+            }
+        }
+
+        function moveRandom(btn){
+            setTimeout(function() {             
+                let x = (Math.random() * (window.innerHeight - 160) + 100).toString();
+                let y = (Math.random() * (window.innerWidth - 120)).toString();
+                btn.style.position = "absolute";
+                btn.style.top = x + "px";
+                btn.style.left = y + "px";
+                clickAllow = true;
+        }, 5000)
+    }
+    
+        document.getElementById("button").onclick = createButtons;
+
+    </script>
+
+</body>
+</html>
