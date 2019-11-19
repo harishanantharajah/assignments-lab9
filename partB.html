@@ -27,30 +27,30 @@
                     btn.style.height = "60px";
 
                     button_array.push(buttonID);
-                    moveRandom(btn)
+                    moveRandom(btn, buttons)
                     
                     btn.style.backgroundColor = "rgb("+ Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")";
-                    document.getElementById("result").innerHTML = "Memorize the correct order. You have 5 seconds."
-
+                    document.getElementById("result").innerHTML = "Memorize the correct order. You have " + buttons + " seconds."
                     btn.onclick = function() {
                         if (clickAllow == true) {
                             if (buttonID == button_array[index]) {
-                                document.getElementById("result").innerHTML = "Nice, " + (4 - i) + " remaining";
+                                document.getElementById("result").innerHTML = "Nice, " + ((buttons - 1) - i) + " remaining";
                                 index += 1;
                                 if (index == buttons) {
                                     document.getElementById("result").innerHTML = "Correct Order. Good Job";
                                 }
-                            } else {
-                                document.getElementById("result").innerHTML = "Wrong Order. Stay hydrated";
-                            } 
+                            }   else {
+                                    document.getElementById("result").innerHTML = "Wrong Order. Stay hydrated";
+                                } 
                         }
                     }
+
                     document.body.appendChild(btn);
                 }
             }
         }
 
-        function moveRandom(btn){
+        function moveRandom(btn, time){
             setTimeout(function() {             
                 let x = (Math.random() * (window.innerHeight - 160) + 100).toString();
                 let y = (Math.random() * (window.innerWidth - 120)).toString();
@@ -58,8 +58,24 @@
                 btn.style.top = x + "px";
                 btn.style.left = y + "px";
                 clickAllow = true;
-        }, 5000)
+        }, time * 1000)
     }
+
+        function buttonOnClick(btn, index, button_array, buttons, buttonID) {
+            btn.onclick = function() {
+                if (clickAllow == true) {
+                    if (buttonID == button_array[index]) {
+                        document.getElementById("result").innerHTML = "Nice, " + ((buttons - 1) - i) + " remaining";
+                        index += 1;
+                        if (index == buttons) {
+                            document.getElementById("result").innerHTML = "Correct Order. Good Job";
+                        }
+                    } else {
+                        document.getElementById("result").innerHTML = "Wrong Order. Stay hydrated";
+                    } 
+                }
+            }
+        }
     
         document.getElementById("button").onclick = createButtons;
 
